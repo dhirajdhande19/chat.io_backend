@@ -7,26 +7,22 @@ const chatSchema = new Schema ({
         type: String,
         required:true,
     },
-    objectId:{
-        senderId:{
-            type:String,
-            required:true,
-        },
-        reciverId:{
-            type:String,
-            required:true,
-        },
-    },
-    order_idN:{
-        type:Number,
+    senderId:{
+        type:String,
         required:true,
     },
-    timeStamp:{
-        type: Date,
-        default : Date.now()
+    reciverId:{
+        type:String,
+        required:true,
+    },
+    orderIdx:{
+        type:Number,
+        required:true,
     }
-
-});
+},  {
+    timestamps: true,
+  }
+);
 
 const Chat = mongoose.model("Chat", chatSchema);
 export {Chat};
