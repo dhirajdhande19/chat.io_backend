@@ -15,10 +15,10 @@ const userSchema = new Schema ({
         type:String,
         required:true,
     },
-    imgage_Url:{
+    imageUrl:{
         type:String,
     },
-    is_googleUser:{
+    isGoogleUser:{
         type:Boolean,
         default:false,
     }
