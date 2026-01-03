@@ -8,7 +8,7 @@ export const saveMsgToDb = async (data) => {
     message: data.message,
     conversationId: getUniqueId(data.receiverId, data.senderId),
   });
-  chat.save();
+  await chat.save();
 
   return chat;
 };
