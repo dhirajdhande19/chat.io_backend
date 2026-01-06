@@ -7,8 +7,10 @@ app.use(express.json());
 // routes
 import userRoutes from './modules/user/user.routes.js';
 import chatRoutes from './modules/chat/chat.routes.js';
+import authRoutes from './modules/auth/auth.routes.js';
 
 app.use('/api/users', userRoutes);
 app.use('/api/chats', chatRoutes);
+app.use('/api/auth', authRoutes);
 
 export default app;
