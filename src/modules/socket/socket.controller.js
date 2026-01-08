@@ -1,6 +1,7 @@
 import { Server } from 'socket.io';
 import { saveMsgToDb } from './socket.service.js';
 import wrapSocketAsync from '../../middleware/wrapSocketAsync.js';
+import { socketAuthMiddleware } from '../../middleware/socketAuthMiddleware.js';
 
 export const connectToSocket = async (server) => {
   const io = new Server(server, {
@@ -12,26 +13,27 @@ export const connectToSocket = async (server) => {
     },
   });
 
-  io.on('connection', (socket) => {
-    // join the room
-    const userId = "active user's id"; // TODO (after register/login): read from jwt
-    socket.join(userId);
+  io.use(socketAuthMiddleware);
 
-    // send message to next person
+  io.on('connection', (socket) => {
+    // extract user id (senderId) from token recived from -> socket.handshake.auth.token -> decode -> set user in socket.user
+    const userId = socket.user._id.toString();
+    // join the room to user's _id
+    socket.join(userId);
+    /*
+      Update user staus Offline/Online
+    */
+    io.emit('user-status', { online: true });
+    console.log(`user: ${userId} is online`);
+
+    // send message to next person (to their _id room)
     socket.on(
       'chat message',
       wrapSocketAsync(async (data) => {
-        //   console.log({
-        //     senderId: data.senderId,
-        //     receiverId: data.receiverId,
-        //     message: data.message,
-        //   });
-
-        // store message to db
-        // call service
+        // store message to db call service
         await saveMsgToDb(data);
 
-        // emit message to user
+        // emit message to user (to their room _id)
         io.to(data.receiverId).emit('chat message', {
           senderId: data.senderId,
           message: data.message,
@@ -39,9 +41,10 @@ export const connectToSocket = async (server) => {
       })
     );
 
-    // on disconnect
+    // handle disconnection & mark {status: offline}
     socket.on('disconnect', () => {
-      console.log(`User: ${userId} disconnected.`);
+      io.emit('user-status', { online: false });
+      console.log(`user: ${userId} is offline`);
     });
   });
 };

@@ -14,12 +14,9 @@
     "prettier": "^3.7.4"
   },
   "dependencies": {
-<<<<<<< HEAD
     "cors": "^2.8.5",
-=======
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
->>>>>>> c86972ccd88442c41a9ff04b186f9f6c26b7edcb
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "joi": "^18.0.2",
