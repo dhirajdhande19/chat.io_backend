@@ -9,13 +9,13 @@ import { dirname, join } from 'node:path';
 
 const server = createServer(app);
 // establish socket connection
-// connectToSocket(server);
+connectToSocket(server);
 
-// const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// app.get('/', (req, res) => {
-//   res.sendFile(join(__dirname, 'index.html'));
-// });
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, 'index.html'));
+});
 
 server.listen(PORT, () => {
   connectToDB();
