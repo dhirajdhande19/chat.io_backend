@@ -13,9 +13,9 @@ connectToSocket(server);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'index.html'));
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(join(__dirname, 'index.html'));
+// });
 
 server.listen(PORT, () => {
   connectToDB();
