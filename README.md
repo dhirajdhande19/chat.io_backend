@@ -4,6 +4,8 @@ This repository contains the **backend service** for a real-time chat applicatio
 
 The backend handles **authentication, OAuth 2.0 register & login, real-time messaging, and user presence tracking**, and is deployed on **Render**.
 
+  Link: [Chat.io](https://chat-io-frontend.vercel.app)
+  
 ---
 
 ## 🚀 Features
