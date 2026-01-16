@@ -7,6 +7,7 @@ import {
   JWT_SECRET,
   GOOGLE_CLIENT_ID,
   GOOGLE_REDIRECT_URI,
+  FRONTEND_URL,
 } from '../../config/env.js';
 import bcrypt from 'bcrypt';
 
@@ -65,5 +66,5 @@ export const googleCallback = wrapAsync(async (req, res) => {
   const token = await googleAuth(code);
   // temp
   // res.json({ token: token });
-  return res.redirect(`http://localhost:5173/authsuccess?token=${token}`);
+  return res.redirect(`${FRONTEND_URL}/authsuccess?token=${token}`);
 });

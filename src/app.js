@@ -8,7 +8,7 @@ app.use(express.json());
 import cors from 'cors';
 app.use(
   cors({
-    origin: ['http://localhost:5173'], // add depoyed fronted url later
+    origin: ['http://localhost:5173', 'https://chat-io-frontend.vercel.app'],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
