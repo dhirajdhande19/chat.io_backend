@@ -12,6 +12,12 @@ import bcrypt from 'bcrypt';
 
 export const registerUser = wrapAsync(async (req, res) => {
   const { name, email, password, imageUrl } = req.body;
+  const prevUser = await User.findOne({ email });
+  if (prevUser) {
+    return res
+      .status(400)
+      .json({ message: 'User already exists, try another email' });
+  }
   const data = { name, email, password, imageUrl };
   const user = await createNewUser(data);
   return res.json(user);
@@ -58,6 +64,6 @@ export const googleCallback = wrapAsync(async (req, res) => {
 
   const token = await googleAuth(code);
   // temp
-  res.json({ token: token });
-  // res.redirect("/frontend") -> when deployed
+  // res.json({ token: token });
+  return res.redirect(`http://localhost:5173/authsuccess?token=${token}`);
 });
