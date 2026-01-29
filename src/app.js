@@ -24,4 +24,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/auth', authRoutes);
 
+app.get('/ping', (req, res) => {
+  return res.status(200).json({ status: 'ok' });
+});
+
 export default app;
